@@ -1,0 +1,93 @@
+
+  .filters{
+    margin: 10px 0;
+  }
+
+  .filters:first-child{
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+  }
+
+  .items{
+      padding-left:0;
+      border-right: 1px solid gray;
+  }
+
+  .sidebar{
+        border-right: 1px solid gray;
+  }
+  
+  section div img{
+    width:25px;
+    height:25px;
+  }
+
+  .something_btn{
+      border:1px solid gray;
+      border-radius:4px;
+      background-color: lightgray;
+      height: 28px;
+      padding: 0 20px;
+  }
+  
+  section div input{
+    padding:5px;
+    border-radius: 5px;
+    height:28px;
+    border: 1px solid gray;
+    font-style: italic;
+    width:100%;
+  }
+  
+  table thead, table tbody{
+    border-top:2px solid gray;
+    border-bottom:2px solid gray;
+  }
+  
+  table tr td{
+    height: 40px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    vertical-align: middle !important;
+  }
+
+  table tr th{
+    height: 24px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    vertical-align: middle !important;
+  }
+
+  section{
+    padding:0 20px !important;
+  }
+  
+  table thead tr th{
+    border-bottom: 2px solid gray;
+  }
+  
+  table thead th{
+    border-bottom: 0px !important;
+  }
+
+  .selected{
+      color:blue;
+  }
+
+  .selected img, .sort_down, table thead tr th:nth-child(2) img{
+      width:10px;
+      height:10px;
+  }
+
+  table tbody tr td:nth-child(2){
+      color:blue;
+  }
+
+  table thead tr th:first-child, table thead tr td:first-child{
+    width:40px;
+  }
+
+  table img{
+      width:12px;
+      height:12px;
+  }
