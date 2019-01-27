@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Table from "./components/Table";
+import ProductTable from "./components/tableView/ProductTable";
 import { Switch, Route } from "react-router-dom";
 
 class App extends Component {
@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <Switch>
-          <Route exact path="/" component={Table} />
+          <Route exact path="/" component={ProductTable} />
         </Switch>
       </React.Fragment>
     );
