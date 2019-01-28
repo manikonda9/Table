@@ -2,6 +2,8 @@ import React from "react";
 import Filters from "../filters/Filters";
 import Table from "../table/Table";
 import Pagination from "../pagination/Pagination";
+let tableData = [];
+let tableCurrentPage = 1;
 
 class ProductTable extends React.Component {
     constructor(props) {
@@ -152,13 +154,13 @@ class ProductTable extends React.Component {
     }
 
     componentWillMount = () => {
-        let items = this.state.data;
-        items.forEach(function (element) {
+        tableData = this.state.data;
+        tableData.forEach(function (element) {
             element.isSelected = false;
         });
 
         this.setState({
-            items: items,
+            items: tableData,
             selectCount: 0
         });
 
@@ -168,23 +170,16 @@ class ProductTable extends React.Component {
 
     findItemsToDisplay = (event) => {
         let value;
-        let items;
         if (event) {
             value = Number.parseInt(event.target.value);
         } else {
             value = this.state.itemsPerPage;
         }
-
-        if(this.state.items){
-            items = this.state.items;
-        }else{
-            items = this.state.data;
-        }
-        let begin = ((this.state.currentPage - 1) * value);
+        let begin = ((tableCurrentPage - 1) * value);
         let end = Number.parseInt(begin + value);
-        let numberOfPages = items.length / value;
+        let numberOfPages = tableData.length / value;
         numberOfPages = Math.ceil(numberOfPages);
-        const filteredItems = items.slice(begin, end);
+        const filteredItems = tableData.slice(begin, end);
         this.setState({
             begin: begin + 1,
             end: end,
@@ -196,10 +191,12 @@ class ProductTable extends React.Component {
 
     changeCurrentPage = (value) => {
         if (value == "left") {
+            tableCurrentPage = tableCurrentPage -1;
             this.setState({
                 currentPage: this.state.currentPage - 1
             })
         } else {
+            tableCurrentPage = tableCurrentPage +1;
             this.setState({
                 currentPage: this.state.currentPage + 1
             })
@@ -219,6 +216,7 @@ class ProductTable extends React.Component {
                 list.push(element);
             }
         });
+        tableData = list;
         this.setState({
             items: list,
             searchItem: searchValue
@@ -240,7 +238,7 @@ class ProductTable extends React.Component {
                 }
             }
         })
-
+        tableData = items;
         this.setState({
             items: items,
             selectCount: count
@@ -262,7 +260,7 @@ class ProductTable extends React.Component {
             })
             count = 0;
         }
-
+        tableData = items;
         this.setState({
             items: items,
             selectCount: count,
