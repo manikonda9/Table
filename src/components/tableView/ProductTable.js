@@ -1,7 +1,7 @@
 import React from "react";
 import Filters from "../filters/Filters";
-import Pagination from "../pagination/Pagination";
 import Table from "../table/Table";
+import Pagination from "../pagination/Pagination";
 
 class ProductTable extends React.Component {
     constructor(props) {
@@ -152,7 +152,7 @@ class ProductTable extends React.Component {
     }
 
     componentWillMount = () => {
-        let items = this.state.items;
+        let items = this.state.data;
         items.forEach(function (element) {
             element.isSelected = false;
         });
@@ -161,21 +161,30 @@ class ProductTable extends React.Component {
             items: items,
             selectCount: 0
         });
+
         this.findItemsToDisplay();
+        
     }
 
     findItemsToDisplay = (event) => {
         let value;
+        let items;
         if (event) {
             value = Number.parseInt(event.target.value);
         } else {
             value = this.state.itemsPerPage;
         }
+
+        if(this.state.items){
+            items = this.state.items;
+        }else{
+            items = this.state.data;
+        }
         let begin = ((this.state.currentPage - 1) * value);
         let end = Number.parseInt(begin + value);
-        let numberOfPages = this.state.items.length / value;
+        let numberOfPages = items.length / value;
         numberOfPages = Math.ceil(numberOfPages);
-        const filteredItems = this.state.items.slice(begin, end);
+        const filteredItems = items.slice(begin, end);
         this.setState({
             begin: begin + 1,
             end: end,
@@ -186,7 +195,7 @@ class ProductTable extends React.Component {
     };
 
     changeCurrentPage = (value) => {
-        /*if (value == "left") {
+        if (value == "left") {
             this.setState({
                 currentPage: this.state.currentPage - 1
             })
@@ -194,9 +203,9 @@ class ProductTable extends React.Component {
             this.setState({
                 currentPage: this.state.currentPage + 1
             })
-        }*/
+        }
 
-        //this.findItemsToDisplay();
+        this.findItemsToDisplay();
     }
 
     onInputHandleChange = (event) => {
@@ -210,12 +219,11 @@ class ProductTable extends React.Component {
                 list.push(element);
             }
         });
-
         this.setState({
             items: list,
             searchItem: searchValue
         });
-        this.findItemsToDisplay()
+        this.findItemsToDisplay();
     }
 
     changeCheckBox = (id, value) => {
@@ -238,22 +246,6 @@ class ProductTable extends React.Component {
             selectCount: count
         })
     }
-
-    /*searchInTable = (event) => {
-        event.preventDefault();
-        const items = this.state.data;
-        const list = [];
-        const value = this.state.searchItem;
-        items.forEach(function (element, index) {
-            if (element.Column1.toLowerCase().indexOf(value) > -1 || element.Column2.toLowerCase().indexOf(value) > -1 || element.Column3.toLowerCase().indexOf(value) > -1) {
-                list.push(element);
-            }
-        });
-
-        this.setState({
-            items: list,
-        })
-    }*/
 
     checkAll = () => {
         const checkValue = !this.state.isChecked;
@@ -278,11 +270,20 @@ class ProductTable extends React.Component {
         })
     }
     render() {
+        const items = this.state.filteredItems;
+        let isChecked = this.state.isChecked;
+        let count = this.state.selectCount;
+        let length = this.state.data.length;
         return (
             <section>
-                <Filters />
-                <Table />
-                <Pagination />
+                <Filters length={length} searchItem={this.state.searchItem} selectCount={this.state.selectCount} change={this.onInputHandleChange} />
+                <Table filteredItems={items} isChecked={isChecked} count={count} length={length} 
+                data={this.state.data}
+                checkAll={this.checkAll} 
+                changeCheckBox={this.changeCheckBox} />
+                <Pagination length={length} begin={this.state.begin} end={this.state.end} currentPage={this.state.currentPage} 
+                 itemsPerPage={this.state.itemsPerPage} findItemsToDisplay={this.findItemsToDisplay} numberOfPages={this.state.numberOfPages}
+                 changeCurrentPage={this.changeCurrentPage} />
             </section>
         )
     }
