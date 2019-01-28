@@ -4,6 +4,11 @@ import Table from "../table/Table";
 import Pagination from "../pagination/Pagination";
 let tableData = [];
 let tableCurrentPage = 1;
+let order = {
+    order1 : "",
+    order2 : "",
+    order3 : ""
+};
 
 class ProductTable extends React.Component {
     constructor(props) {
@@ -205,6 +210,32 @@ class ProductTable extends React.Component {
         this.findItemsToDisplay();
     }
 
+    sortTable = (Column,value) =>{
+        let items = this.state.data;
+        order[value] = order[value] ? order[value] : "asc";
+        if(order[value] === "asc"){
+            tableData = items.sort((a,b) =>{
+                if(a[Column] > b[Column])
+                return 1;
+                else
+                return -1;
+            });
+            order[value] = "desc";
+        }else{
+            tableData = items.sort((a,b) =>{
+                if(a[Column] < b[Column])
+                return 1;
+                else
+                return -1;
+            });
+            order[value] = "asc";
+        }
+        this.setState({
+            items: tableData
+        });
+        this.findItemsToDisplay();
+    }
+
     onInputHandleChange = (event) => {
         event.preventDefault();
         const searchValue = event.target.value;
@@ -275,9 +306,10 @@ class ProductTable extends React.Component {
         return (
             <section>
                 <Filters length={length} searchItem={this.state.searchItem} selectCount={this.state.selectCount} change={this.onInputHandleChange} />
-                <Table filteredItems={items} isChecked={isChecked} count={count} length={length} 
+                <Table filteredItems={items} isChecked={isChecked} count={count} length={length} order={order}
                 data={this.state.data}
                 checkAll={this.checkAll} 
+                sortTable={this.sortTable}
                 changeCheckBox={this.changeCheckBox} />
                 <Pagination length={length} begin={this.state.begin} end={this.state.end} currentPage={this.state.currentPage} 
                  itemsPerPage={this.state.itemsPerPage} findItemsToDisplay={this.findItemsToDisplay} numberOfPages={this.state.numberOfPages}

@@ -74,7 +74,7 @@
       color:blue;
   }
 
-  .selected img, .sort_down, table thead tr th:nth-child(2) img{
+  .selected img, .sort_down, table thead tr th:nth-of-type(2n) img{
       width:10px;
       height:10px;
   }
@@ -95,4 +95,26 @@
   .pagination div img{
     width:12px;
     height:12px;
+  }
+
+  table tbody tr td{
+    border-bottom: 1px solid lightgray;
+  }
+
+  table thead tr th:first-child span{
+    margin-left:-5px;
+  }
+
+  table thead tr th.user_selected{
+    background-color: lightblue;
+    border-left:1px solid blue;
+    border-right:1px solid blue;
+  }
+
+  table tbody tr.user_selected{
+    background-color: lightblue;
+    border-left:4px solid blue;
+  }
+  table tbody tr.user_selected span{
+    margin-left:-2px;
   }
