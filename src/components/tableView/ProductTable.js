@@ -190,7 +190,7 @@ class ProductTable extends React.Component {
     };
 
     changeCurrentPage = (value) => {
-        if (value == "left") {
+        if (value === "left") {
             tableCurrentPage = tableCurrentPage -1;
             this.setState({
                 currentPage: this.state.currentPage - 1
