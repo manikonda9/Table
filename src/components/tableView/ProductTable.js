@@ -162,6 +162,7 @@ class ProductTable extends React.Component {
         tableData = this.state.data;
         tableData.forEach(function (element) {
             element.isSelected = false;
+            element.lastSelectedFlag = -1;
         });
 
         this.setState({
@@ -259,12 +260,21 @@ class ProductTable extends React.Component {
         let items = this.state.data;
         let count = this.state.selectCount;
         items.forEach(function (element, index) {
+            if(element.lastSelectedFlag === 1){
+                element.lastSelectedFlag = 0;
+            }else{
+                if(element.lastSelectedFlag === 0){
+                    element.lastSelectedFlag = 2;
+                }
+            }
             if (index === id) {
                 if (value) {
                     element.isSelected = false;
+                    element.lastSelectedFlag = -1;
                     count--;
                 } else {
                     element.isSelected = true;
+                    element.lastSelectedFlag = 1;
                     count++;
                 }
             }
@@ -283,11 +293,13 @@ class ProductTable extends React.Component {
         if (checkValue) {
             items.forEach(function (element) {
                 element.isSelected = true;
+                element.lastSelectedFlag = 1;
             })
             count = items.length;
         } else {
             items.forEach(function (element) {
                 element.isSelected = false;
+                element.lastSelectedFlag = -1;
             })
             count = 0;
         }

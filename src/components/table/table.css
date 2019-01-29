@@ -111,10 +111,15 @@
     border-right:1px solid blue;
   }
 
-  table tbody tr.user_selected{
+  table tbody tr.last_selected{
     background-color: lightblue;
     border-left:4px solid blue;
   }
-  table tbody tr.user_selected span{
+
+  table tbody tr.user_selected{
+    background-color: lightblue;
+  }
+
+  table tbody tr.last_selected span{
     margin-left:-2px;
   }
