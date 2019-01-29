@@ -1,20 +1,12 @@
 import React from "react";
 import "./table.css";
 
-let hoverElement = false;
-
 class Table extends React.Component {
+    
     applyStyles = (event) =>{
         event.target.className = "user_selected";
     }
 
-    hover = (event) =>{
-        hoverElement = true;
-    }
-
-    leave = (event) =>{
-        hoverElement = false;
-    }
     render() {
         const items = this.props.filteredItems;
         let isChecked = this.props.isChecked;
@@ -36,12 +28,12 @@ class Table extends React.Component {
                     <tbody>
                         {items.length > 0 ? items.map((item, index) => {
                             return (
-                                <tr onMouseEnter={this.hover} onMouseLeave={this.leave} key={index} className={item.lastSelectedFlag === 0?"last_selected":item.isSelected?"user_selected":null}>
-                                    <td><span onClick={this.props.changeCheckBox.bind(this, index, item.isSelected)}>{item.isSelected ? <img src={require('../../content/icons/check-square.svg')} alt='plus' /> : <img src={require('../../content/icons/blank-check-box.svg')} alt='plus' />}</span>
+                                <tr onMouseEnter={this.props.hover.bind(this,item.Id)} onMouseLeave={this.props.leave.bind(this,item.Id)} key={index} className={item.lastSelectedFlag === 0?"last_selected":item.isSelected?"user_selected":null}>
+                                    <td><span onClick={this.props.changeCheckBox.bind(this, item.Id, item.isSelected)}>{item.isSelected ? <img src={require('../../content/icons/check-square.svg')} alt='plus' /> : <img src={require('../../content/icons/blank-check-box.svg')} alt='plus' />}</span>
                                     </td>
                                     <td>{item.Column1}</td>
                                     <td>{item.Column2}</td>
-                                    <td>{item.Column3}{(item.lastSelectedFlag === 0) ?<span className="pull-right"><img src={require('../../content/icons/options.svg')} alt="plus" /></span>:null}</td>
+                                    <td>{item.Column3}{(item.lastSelectedFlag === 0 || item.hover) ?<span className="pull-right"><img src={require('../../content/icons/options.svg')} alt="plus" /></span>:null}</td>
                                 </tr>
                             )
                         }) : <tr><td colSpan="4" className="text-center">No Results Found</td></tr>}
