@@ -17,7 +17,6 @@ class ProductTable extends React.Component {
             itemsPerPage: 10,
             currentPage: 1,
             begin: 1,
-
             end: 10,
             filteredItems: [],
             isChecked: false,
@@ -308,14 +307,35 @@ class ProductTable extends React.Component {
     changeCheckBox = (id, value) => {
         let items = this.state.data;
         let count = this.state.selectCount;
+        let selectedIndex;
+        items.forEach(function(element,index){
+            if(element.Id === id){
+                selectedIndex = index;
+            }
+        })
         items.forEach(function (element, index) {
-            if(element.lastSelectedFlag === 1){
-                element.lastSelectedFlag = 0;
-            }else{
+            if(!value){
+                if(element.lastSelectedFlag === 1){
+                    element.lastSelectedFlag = 0;
+                }else{
+                    if(element.lastSelectedFlag === 0){
+                        element.lastSelectedFlag = 2;
+                    }
+                    if(element.lastSelectedFlag === 2){
+                        element.lastSelectedFlag ++;
+                    }
+                }
+            }
+            if(value && element.lastSelectedFlag >=2 && index === selectedIndex ){
                 if(element.lastSelectedFlag === 0){
+                    element.lastSelectedFlag = 1;
+                }if(element.lastSelectedFlag > 2){
+                    element.lastSelectedFlag --;
+                }if(element.lastSelectedFlag === 1){
                     element.lastSelectedFlag = 2;
                 }
             }
+            
             if (element.Id === id) {
                 if (value) {
                     element.isSelected = false;
