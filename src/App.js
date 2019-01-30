@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import ProductTable from "./components/tableView/ProductTable";
 import { Switch, Route } from "react-router-dom";

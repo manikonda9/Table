@@ -2,12 +2,13 @@ import React from "react";
 import Filters from "../filters/Filters";
 import Table from "../table/Table";
 import Pagination from "../pagination/Pagination";
+
 let tableData = [];
 let tableCurrentPage = 1;
 let order = {
-    order1 : "",
-    order2 : "",
-    order3 : ""
+    order1: "",
+    order2: "",
+    order3: ""
 };
 
 class ProductTable extends React.Component {
@@ -24,157 +25,157 @@ class ProductTable extends React.Component {
             searchItem: "",
             data: [
                 {
-                    Id : 1,
+                    Id: 1,
                     Column1: "Value1",
                     Column2: "Value2",
                     Column3: "Value3"
                 },
                 {
-                    Id : 2,
+                    Id: 2,
                     Column1: "Value4",
                     Column2: "Value5",
                     Column3: "Value6"
                 },
                 {
-                    Id : 3,
+                    Id: 3,
                     Column1: "Value7",
                     Column2: "Value8",
                     Column3: "Value9"
                 },
                 {
-                    Id : 4,
+                    Id: 4,
                     Column1: "Value10",
                     Column2: "Value11",
                     Column3: "Value12"
                 },
                 {
-                    Id : 5,
+                    Id: 5,
                     Column1: "Value13",
                     Column2: "Value14",
                     Column3: "Value15"
                 },
                 {
-                    Id : 6,
+                    Id: 6,
                     Column1: "Value16",
                     Column2: "Value17",
                     Column3: "Value18"
                 },
                 {
-                    Id : 7,
+                    Id: 7,
                     Column1: "Value19",
                     Column2: "Value20",
                     Column3: "Value21"
                 },
                 {
-                    Id : 8,
+                    Id: 8,
                     Column1: "Value22",
                     Column2: "Value23",
                     Column3: "Value24"
                 },
                 {
-                    Id : 9,
+                    Id: 9,
                     Column1: "Value25",
                     Column2: "Value26",
                     Column3: "Value27"
                 },
                 {
-                    Id : 10,
+                    Id: 10,
                     Column1: "Value28",
                     Column2: "Value29",
                     Column3: "Value30"
                 },
                 {
-                    Id : 11,
+                    Id: 11,
                     Column1: "Value31",
                     Column2: "Value32",
                     Column3: "Value33"
                 },
                 {
-                    Id : 12,
+                    Id: 12,
                     Column1: "Value34",
                     Column2: "Value35",
                     Column3: "Value36"
                 },
                 {
-                    Id : 13,
+                    Id: 13,
                     Column1: "Value37",
                     Column2: "Value38",
                     Column3: "Value39"
                 },
                 {
-                    Id : 14,
+                    Id: 14,
                     Column1: "Value1",
                     Column2: "Value2",
                     Column3: "Value3"
                 },
                 {
-                    Id : 15,
+                    Id: 15,
                     Column1: "Value4",
                     Column2: "Value5",
                     Column3: "Value6"
                 },
                 {
-                    Id : 16,
+                    Id: 16,
                     Column1: "Value7",
                     Column2: "Value8",
                     Column3: "Value9"
                 },
                 {
-                    Id : 17,
+                    Id: 17,
                     Column1: "Value10",
                     Column2: "Value11",
                     Column3: "Value12"
                 },
                 {
-                    Id : 18,
+                    Id: 18,
                     Column1: "Value13",
                     Column2: "Value14",
                     Column3: "Value15"
                 },
                 {
-                    Id : 19,
+                    Id: 19,
                     Column1: "Value16",
                     Column2: "Value17",
                     Column3: "Value18"
                 },
                 {
-                    Id : 20,
+                    Id: 20,
                     Column1: "Value19",
                     Column2: "Value20",
                     Column3: "Value21"
                 },
                 {
-                    Id : 21,
+                    Id: 21,
                     Column1: "Value22",
                     Column2: "Value23",
                     Column3: "Value24"
                 },
                 {
-                    Id : 22,
+                    Id: 22,
                     Column1: "Value25",
                     Column2: "Value26",
                     Column3: "Value27"
                 },
                 {
-                    Id : 23,
+                    Id: 23,
                     Column1: "Value28",
                     Column2: "Value29",
                     Column3: "Value30"
                 },
                 {
-                    Id : 24,
+                    Id: 24,
                     Column1: "Value31",
                     Column2: "Value32",
                     Column3: "Value33"
                 },
                 {
-                    Id : 25,
+                    Id: 25,
                     Column1: "Value34",
                     Column2: "Value35",
                     Column3: "Value36"
                 },
                 {
-                    Id : 26,
+                    Id: 26,
                     Column1: "Value37",
                     Column2: "Value38",
                     Column3: "Value39"
@@ -197,7 +198,7 @@ class ProductTable extends React.Component {
         });
 
         this.findItemsToDisplay();
-        
+
     }
 
     findItemsToDisplay = (event) => {
@@ -212,8 +213,12 @@ class ProductTable extends React.Component {
         let numberOfPages = tableData.length / value;
         numberOfPages = Math.ceil(numberOfPages);
         const filteredItems = tableData.slice(begin, end);
+        begin = begin + 1;
+        if(filteredItems.length === 0){
+            begin = 0;
+        }
         this.setState({
-            begin: begin + 1,
+            begin: begin,
             end: end,
             itemsPerPage: value,
             filteredItems: filteredItems,
@@ -223,12 +228,12 @@ class ProductTable extends React.Component {
 
     changeCurrentPage = (value) => {
         if (value === "left") {
-            tableCurrentPage = tableCurrentPage -1;
+            tableCurrentPage = tableCurrentPage - 1;
             this.setState({
                 currentPage: this.state.currentPage - 1
             })
         } else {
-            tableCurrentPage = tableCurrentPage +1;
+            tableCurrentPage = tableCurrentPage + 1;
             this.setState({
                 currentPage: this.state.currentPage + 1
             })
@@ -237,23 +242,23 @@ class ProductTable extends React.Component {
         this.findItemsToDisplay();
     }
 
-    sortTable = (Column,value) =>{
+    sortTable = (Column, value) => {
         let items = this.state.data;
         order[value] = order[value] ? order[value] : "asc";
-        if(order[value] === "asc"){
-            tableData = items.sort((a,b) =>{
-                if(a[Column] > b[Column])
-                return 1;
+        if (order[value] === "asc") {
+            tableData = items.sort((a, b) => {
+                if (a[Column] > b[Column])
+                    return 1;
                 else
-                return -1;
+                    return -1;
             });
             order[value] = "desc";
-        }else{
-            tableData = items.sort((a,b) =>{
-                if(a[Column] < b[Column])
-                return 1;
+        } else {
+            tableData = items.sort((a, b) => {
+                if (a[Column] < b[Column])
+                    return 1;
                 else
-                return -1;
+                    return -1;
             });
             order[value] = "asc";
         }
@@ -263,25 +268,25 @@ class ProductTable extends React.Component {
         this.findItemsToDisplay();
     }
 
-    hover = (id) =>{
-        tableData.forEach(function(element,index) {
-            if(element.Id === id){
+    hover = (id) => {
+        tableData.forEach(function (element, index) {
+            if (element.Id === id) {
                 element.hover = true;
             }
         });
         this.setState({
-            items : tableData
+            items: tableData
         })
     }
 
-    leave = (id) =>{
-        tableData.forEach(function(element,index) {
-            if(element.Id === id){
+    leave = (id) => {
+        tableData.forEach(function (element, index) {
+            if (element.Id === id) {
                 element.hover = !element.hover;
             }
         });
         this.setState({
-            items : tableData
+            items: tableData
         })
     }
 
@@ -297,45 +302,58 @@ class ProductTable extends React.Component {
             }
         });
         tableData = list;
+        tableCurrentPage = 1;
         this.setState({
             items: list,
-            searchItem: searchValue
+            searchItem: searchValue,
+            currentPage : tableCurrentPage
         });
         this.findItemsToDisplay();
     }
 
     changeCheckBox = (id, value) => {
-        let items = this.state.data;
+        let items = tableData;
         let count = this.state.selectCount;
-        let selectedIndex;
-        items.forEach(function(element,index){
-            if(element.Id === id){
+        let selectedIndex, selectedFlag;
+        items.forEach(function (element, index) {
+            if (element.Id === id) {
                 selectedIndex = index;
+                selectedFlag = element.lastSelectedFlag;
             }
         })
         items.forEach(function (element, index) {
-            if(!value){
-                if(element.lastSelectedFlag === 1){
+            if (!value) {
+                if (element.lastSelectedFlag === 1) {
                     element.lastSelectedFlag = 0;
-                }else{
-                    if(element.lastSelectedFlag === 0){
-                        element.lastSelectedFlag = 2;
-                    }
-                    if(element.lastSelectedFlag === 2){
-                        element.lastSelectedFlag ++;
-                    }
-                }
-            }
-            if(value && element.lastSelectedFlag >=2 && index === selectedIndex ){
-                if(element.lastSelectedFlag === 0){
-                    element.lastSelectedFlag = 1;
-                }if(element.lastSelectedFlag > 2){
-                    element.lastSelectedFlag --;
-                }if(element.lastSelectedFlag === 1){
+                } else if (element.lastSelectedFlag === 0) {
                     element.lastSelectedFlag = 2;
                 }
+                else if (element.lastSelectedFlag >= 2) {
+                    element.lastSelectedFlag++;
+                }
             }
-            
+            if (value && element.lastSelectedFlag >= 2 && index === selectedIndex) {
+                element.lastSelectedFlag--;
+            }
+            if (value && selectedFlag === 1) {
+                if (element.lastSelectedFlag === 0) {
+                    element.lastSelectedFlag = 1;
+                }
+                if (element.lastSelectedFlag === 2) {
+                    element.lastSelectedFlag = 0;
+                }
+                if (element.lastSelectedFlag > 2) {
+                    element.lastSelectedFlag--;
+                }
+            }
+            if (value && selectedFlag === 0) {
+                if (element.lastSelectedFlag === 2) {
+                    element.lastSelectedFlag = 0;
+                }
+                if (element.lastSelectedFlag > 2) {
+                    element.lastSelectedFlag--;
+                }
+            }
             if (element.Id === id) {
                 if (value) {
                     element.isSelected = false;
@@ -357,7 +375,7 @@ class ProductTable extends React.Component {
 
     checkAll = () => {
         const checkValue = !this.state.isChecked;
-        let items = this.state.data;
+        let items = tableData;
         let count;
         if (checkValue) {
             items.forEach(function (element) {
@@ -383,20 +401,20 @@ class ProductTable extends React.Component {
         const items = this.state.filteredItems;
         let isChecked = this.state.isChecked;
         let count = this.state.selectCount;
-        let length = this.state.data.length;
+        let length = tableData.length;
         return (
             <section>
                 <Filters length={length} searchItem={this.state.searchItem} selectCount={this.state.selectCount} change={this.onInputHandleChange} />
                 <Table filteredItems={items} isChecked={isChecked} count={count} length={length} order={order}
-                data={this.state.data}
-                checkAll={this.checkAll} 
-                sortTable={this.sortTable}
-                hover={this.hover}
-                leave={this.leave}
-                changeCheckBox={this.changeCheckBox} />
-                <Pagination length={length} begin={this.state.begin} end={this.state.end} currentPage={this.state.currentPage} 
-                 itemsPerPage={this.state.itemsPerPage} findItemsToDisplay={this.findItemsToDisplay} numberOfPages={this.state.numberOfPages}
-                 changeCurrentPage={this.changeCurrentPage} />
+                    data={this.state.data}
+                    checkAll={this.checkAll}
+                    sortTable={this.sortTable}
+                    hover={this.hover}
+                    leave={this.leave}
+                    changeCheckBox={this.changeCheckBox} />
+                <Pagination length={length} begin={this.state.begin} end={this.state.end} currentPage={this.state.currentPage}
+                    itemsPerPage={this.state.itemsPerPage} findItemsToDisplay={this.findItemsToDisplay} numberOfPages={this.state.numberOfPages}
+                    changeCurrentPage={this.changeCurrentPage} />
             </section>
         )
     }
